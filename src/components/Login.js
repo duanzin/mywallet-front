@@ -4,8 +4,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../Context";
 
-export default function LoginPage() {
-  const [form, setForm] = useState({ email: "", password: "" });
+export default function Login() {
+  const [form, setForm] = React.useState({ email: "", password: "" });
   const [disable, setDisable] = React.useState(false);
   const { setuserinfo } = useContext(Context);
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ export default function LoginPage() {
           placeholder="E-mail"
           type="email"
           required
-          disabled={isLoading}
+          disabled={disable}
           value={form.email}
           onChange={handleForm}
         />
@@ -48,7 +48,7 @@ export default function LoginPage() {
           placeholder="Senha"
           type="password"
           required
-          disabled={isLoading}
+          disabled={disable}
           value={form.password}
           onChange={handleForm}
         />
@@ -67,13 +67,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 90px 0;
-  h1 {
-    font-family: "Saira Stencil One", cursive;
-    font-size: 32px;
-    line-height: 50px;
-    color: #ffffff;
-  }
+  padding: 95px 0;
   form {
     display: flex;
     flex-direction: column;
@@ -81,34 +75,6 @@ const Container = styled.div`
     row-gap: 13px;
     margin-top: 24px;
     margin-bottom: 36px;
-    input {
-      width: 326px;
-      height: 58px;
-      border: none;
-      border-radius: 5px;
-      padding-left: 15px;
-      ::placeholder {
-        font-size: 20px;
-        line-height: 23px;
-        color: #000000;
-      }
-      :disabled {
-        background: #f2f2f2;
-        color: #afafaf;
-      }
-    }
-    button {
-      width: 326px;
-      height: 46px;
-      background: #a328d6;
-      border: none;
-      border-radius: 5px;
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 23px;
-      text-align: center;
-      color: #ffffff;
-    }
   }
   a {
     font-weight: 700;

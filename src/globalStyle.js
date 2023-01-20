@@ -35,6 +35,46 @@ body {
 	background-color: #9567BE;
 	line-height: 1;
 }
+h1 {
+    font-family: "Saira Stencil One", cursive;
+    font-size: 32px;
+    line-height: 50px;
+    color: #ffffff;
+  }
+h2 {
+	font-weight: 700;
+	font-size: 26px;
+	line-height: 31px;
+	color: #FFFFFF;
+}
+input {
+      width: 326px;
+      height: 58px;
+      border: none;
+      border-radius: 5px;
+      padding-left: 15px;
+      ::placeholder {
+        font-size: 20px;
+        line-height: 23px;
+        color: #000000;
+      }
+      :disabled {
+        background: #f2f2f2;
+        color: #afafaf;
+      }
+    }
+button {
+      width: 326px;
+      height: 46px;
+      background: #a328d6;
+      border: none;
+      border-radius: 5px;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 23px;
+      text-align: center;
+      color: #ffffff;
+    }
 ol, ul {
 	list-style: none;
 }

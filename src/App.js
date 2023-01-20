@@ -5,6 +5,8 @@ import { Context } from "./Context";
 import Login from "./components/Login";
 import Cadastro from "./components/Cadastro";
 import Home from "./components/Home";
+import Entrada from "./components/Entrada";
+import Saida from "./components/Saida";
 
 export default function App() {
   const [userinfo, setuserinfo] = React.useState(undefined);
