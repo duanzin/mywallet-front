@@ -7,18 +7,32 @@ import LiRegistro from "./LiRegistro";
 
 export default function Home() {
   const [registros, setRegistros] = React.useState([]);
-  const { user } = useContext(Context);
+  const { userinfo } = useContext(Context);
   const navigate = useNavigate();
+  const { REACT_APP_API_URL } = process.env;
   const config = {
     headers: {
-      Authorization: `Bearer ${user.token}`,
+      Authorization: `Bearer ${userinfo.token}`,
     },
   };
+
+  React.useEffect(() => {
+    const requisicao = axios.get(
+      `${REACT_APP_API_URL}/home`,
+      config
+    );
+    requisicao.then((resposta) => {
+      setRegistros(resposta.data);
+    });
+    requisicao.catch((error) => {
+      alert(error.response.data.message);
+    });
+  }, []);
 
   return (
     <>
       <Header>
-        <h2>Olá, {user.name}</h2>
+        <h2>Olá, {userinfo.name}</h2>
       </Header>
       <StyledDiv>
         {registros.length === 0 ? (

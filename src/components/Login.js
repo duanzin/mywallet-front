@@ -9,6 +9,7 @@ export default function Login() {
   const [disable, setDisable] = React.useState(false);
   const { setuserinfo } = useContext(Context);
   const navigate = useNavigate();
+  const { REACT_APP_API_URL } = process.env;
 
   function handleForm(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,14 +19,14 @@ export default function Login() {
     e.preventDefault();
     setDisable(true);
 
-    const request = axios.post(REACT_APP_API_URL, form);
+    const request = axios.post(`${REACT_APP_API_URL}/login`, form);
     request.then((resposta) => {
       setuserinfo(resposta.data);
       setDisable(false);
       navigate(`/home`);
     });
-    request.catch(() => {
-      alert("Falha ao fazer login, tente novamente");
+    request.catch((error) => {
+      alert(error.response.data.message);
       setDisable(false);
     });
   }

@@ -12,6 +12,7 @@ export default function Entrada() {
       Authorization: `Bearer ${user.token}`,
     },
   };
+  const { REACT_APP_API_URL } = process.env;
 
   function handleForm(e) {
     setForm({ ...form, [e.target.name]: e.target.value });

@@ -12,6 +12,7 @@ export default function Cadastro() {
   });
   const [disable, setDisable] = React.useState(false);
   const navigate = useNavigate();
+  const { REACT_APP_API_URL } = process.env;
 
   function handleForm(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,13 +22,13 @@ export default function Cadastro() {
     e.preventDefault();
     setDisable(true);
 
-    const request = axios.post(REACT_APP_API_URL, form);
+    const request = axios.post(`${REACT_APP_API_URL}/cadastro`, form);
     request.then(() => {
       setDisable(false);
       navigate(`/`);
     });
-    request.catch(() => {
-      alert("Falha ao cadastrar, tente novamente");
+    request.catch((error) => {
+      alert(error.response.data.message);
       setDisable(false);
     });
   }
