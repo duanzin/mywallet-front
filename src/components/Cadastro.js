@@ -4,25 +4,28 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Cadastro() {
-  const [form, setForm] = React.useState({
-    email: "",
-    password: "",
-    name: "",
-    repeat: "",
-  });
+  const [name, setname] = React.useState("");
+  const [email, setemail] = React.useState("");
+  const [password, setpassword] = React.useState("");
+  const [repeat, setrepeat] = React.useState("");
   const [disable, setDisable] = React.useState(false);
   const navigate = useNavigate();
   const { REACT_APP_API_URL } = process.env;
-
-  function handleForm(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
 
   function handleSignUp(e) {
     e.preventDefault();
     setDisable(true);
 
-    const request = axios.post(`${REACT_APP_API_URL}/cadastro`, form);
+    if (password !== repeat) {
+      setDisable(false);
+      return alert("Por favor confirme a senha");
+    }
+
+    const request = axios.post(`${REACT_APP_API_URL}/cadastro`, {
+      email: email,
+      name: name,
+      password: password,
+    });
     request.then(() => {
       setDisable(false);
       navigate(`/`);
@@ -43,8 +46,8 @@ export default function Cadastro() {
           type="text"
           required
           disabled={disable}
-          value={form.name}
-          onChange={handleForm}
+          value={name}
+          onChange={(e) => setname(e.target.value)}
         />
         <input
           name="email"
@@ -52,8 +55,8 @@ export default function Cadastro() {
           type="email"
           required
           disabled={disable}
-          value={form.email}
-          onChange={handleForm}
+          value={email}
+          onChange={(e) => setemail(e.target.value)}
         />
         <input
           name="password"
@@ -61,8 +64,8 @@ export default function Cadastro() {
           type="password"
           required
           disabled={disable}
-          value={form.password}
-          onChange={handleForm}
+          value={password}
+          onChange={(e) => setpassword(e.target.value)}
         />
         <input
           name="repeat"
@@ -70,8 +73,8 @@ export default function Cadastro() {
           type="password"
           required
           disabled={disable}
-          value={form.repeat}
-          onChange={handleForm}
+          value={repeat}
+          onChange={(e) => setrepeat(e.target.value)}
         />
         <button type="submit" disabled={disable}>
           Cadastrar
@@ -98,6 +101,7 @@ const Container = styled.div`
     margin-bottom: 36px;
   }
   a {
+    text-decoration: none;
     font-weight: 700;
     font-size: 15px;
     line-height: 18px;

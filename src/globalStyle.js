@@ -32,7 +32,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	background-color: #9567BE;
+	background-color: #8C11BE;
 	line-height: 1;
 }
 h1 {

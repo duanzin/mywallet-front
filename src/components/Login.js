@@ -5,21 +5,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../Context";
 
 export default function Login() {
-  const [form, setForm] = React.useState({ email: "", password: "" });
+  const [email, setemail] = React.useState("");
+  const [password, setpassword] = React.useState("");
   const [disable, setDisable] = React.useState(false);
   const { setuserinfo } = useContext(Context);
   const navigate = useNavigate();
   const { REACT_APP_API_URL } = process.env;
 
-  function handleForm(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
   function handleLogin(e) {
     e.preventDefault();
     setDisable(true);
 
-    const request = axios.post(`${REACT_APP_API_URL}/login`, form);
+    const request = axios.post(`${REACT_APP_API_URL}/login`, {
+      email: email,
+      password: password,
+    });
     request.then((resposta) => {
       setuserinfo(resposta.data);
       setDisable(false);
@@ -41,8 +41,8 @@ export default function Login() {
           type="email"
           required
           disabled={disable}
-          value={form.email}
-          onChange={handleForm}
+          value={email}
+          onChange={(e) => setemail(e.target.value)}
         />
         <input
           name="password"
@@ -50,8 +50,8 @@ export default function Login() {
           type="password"
           required
           disabled={disable}
-          value={form.password}
-          onChange={handleForm}
+          value={password}
+          onChange={(e) => setpassword(e.target.value)}
         />
         <button type="submit" disabled={disable}>
           Entrar
@@ -78,6 +78,7 @@ const Container = styled.div`
     margin-bottom: 36px;
   }
   a {
+    text-decoration: none;
     font-weight: 700;
     font-size: 15px;
     line-height: 18px;
