@@ -11,7 +11,6 @@ export default function Home() {
     registros: [],
   });
   const { userinfo } = useContext(Context);
-  console.log(userinfo);
   const navigate = useNavigate();
   const { REACT_APP_API_URL } = process.env;
   const config = {
@@ -35,23 +34,25 @@ export default function Home() {
       <Header>
         <h2>Olá, {userinfo.name}</h2>
       </Header>
-      <StyledDiv>
+      <StyledDiv saldo={carteira.saldo}>
         {carteira.registros.length === 0 ? (
           <p>Não há registros de entrada ou saída</p>
         ) : (
           <>
             <ul>
               {carteira.registros.map((r, index) => (
-                <StyledLi key={index}>
-                  <span>{r.date}</span>
-                  <span>{r.description}</span>
+                <StyledLi key={index} type={r.type}>
+                  <div>
+                    <span>{r.date}</span>
+                    <span>{r.description}</span>
+                  </div>
                   <span>{r.value}</span>
                 </StyledLi>
               ))}
             </ul>
             <div>
-              <h3>Saldo</h3>
-              <h4>{carteira.saldo}</h4>
+              <b>Saldo</b>
+              <p>{carteira.saldo}</p>
             </div>
           </>
         )}
@@ -96,8 +97,11 @@ const Header = styled.header`
 
 const StyledDiv = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 326px;
   height: 446px;
+  padding: 23px 12px 10px 12px;
   margin-bottom: 13px;
   background: #ffffff;
   border-radius: 5px;
@@ -113,14 +117,42 @@ const StyledDiv = styled.div`
     flex-direction: column;
     row-gap: 10px;
   }
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 17px;
+    line-height: 20px;
+    b {
+      font-weight: 700;
+      color: #000000;
+    }
+    p {
+      margin: 0;
+      font-weight: 400;
+      color: ${(props) => (props.saldo < 0 ? "#C70000" : "#03AC00")};
+    }
+  }
 `;
 
 const StyledLi = styled.li`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
+  color: ${(props) => (props.type == "entrada" ? "#03AC00" : "#C70000")};
+  div {
+    display: flex;
+    column-gap: 5px;
+    color: #c6c6c6;
+    span {
+      :last-child {
+        color: #000000;
+      }
+    }
+  }
 `;
 
 const Footer = styled.footer`
