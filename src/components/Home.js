@@ -33,6 +33,7 @@ export default function Home() {
     <Corpo>
       <Header>
         <h2>Olá, {userinfo.name}</h2>
+        <ion-icon name="exit-outline"></ion-icon>
       </Header>
       <StyledDiv saldo={carteira.saldo}>
         {carteira.registros.length === 0 ? (
@@ -63,6 +64,7 @@ export default function Home() {
             navigate("/nova-entrada");
           }}
         >
+          <ion-icon name="add-circle-outline"></ion-icon>
           Nova entrada
         </button>
         <button
@@ -70,6 +72,7 @@ export default function Home() {
             navigate("/nova-saida");
           }}
         >
+          <ion-icon name="remove-circle-outline"></ion-icon>
           Nova saída
         </button>
       </Footer>
@@ -93,6 +96,10 @@ const Header = styled.header`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  ion-icon {
+      font-size: 30px;
+      color: #FFFFFF;
+    }
 `;
 
 const StyledDiv = styled.div`
@@ -160,13 +167,21 @@ const Footer = styled.footer`
   flex-direction: row;
   column-gap: 15px;
   button {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
     width: 155px;
     height: 114px;
+    padding: 10px;
     background: #a328d6;
     border-radius: 5px;
     font-weight: 700;
     font-size: 17px;
     line-height: 20px;
     color: #ffffff;
+    ion-icon {
+      font-size: 25px;
+    }
   }
 `;
