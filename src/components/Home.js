@@ -33,7 +33,12 @@ export default function Home() {
     <Corpo>
       <Header>
         <h2>Olá, {userinfo.name}</h2>
-        <ion-icon name="exit-outline"></ion-icon>
+        <ion-icon
+          name="exit-outline"
+          onClick={() => {
+            navigate("/");
+          }}
+        ></ion-icon>
       </Header>
       <StyledDiv saldo={carteira.saldo}>
         {carteira.registros.length === 0 ? (
@@ -97,9 +102,9 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   ion-icon {
-      font-size: 30px;
-      color: #FFFFFF;
-    }
+    font-size: 30px;
+    color: #ffffff;
+  }
 `;
 
 const StyledDiv = styled.div`
